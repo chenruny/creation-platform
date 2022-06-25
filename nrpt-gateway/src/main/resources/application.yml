@@ -1,0 +1,81 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://nrpt-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath= /api/(?<segment>.*),/$\{segment}
+
+        - id: coupon_route
+          uri: lb://nrpt-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath= /api/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://nrpt-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath= /api/thirdparty/(?<segment>.*),/$\{segment}
+
+        - id: member_route
+          uri: lb://nrpt-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath= /api/(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://nrpt-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath= /api/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath= /api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: nrpt_host_route
+          uri: lb://nrpt-product
+          predicates:
+            - Host=nrpt.com,item.nrpt.com
+
+        - id: nrpt_auth_route
+          uri: lb://nrpt-auth-server
+          predicates:
+            - Host=auth.nrpt.com
+
+        - id: nrpt_cart_route
+          uri: lb://nrpt-cart
+          predicates:
+            - Host=cart.nrpt.com
+
+        - id: nrpt_order_route
+          uri: lb://nrpt-order
+          predicates:
+            - Host=order.nrpt.com
+
+        - id: nrpt_member_route
+          uri: lb://nrpt-member
+          predicates:
+            - Host=member.nrpt.com
+
+        - id: nrpt_search_route
+          uri: lb://nrpt-search
+          predicates:
+            - Host=search.nrpt.com
+
+        - id: nrpt_seckill_route
+          uri: lb://nrpt-seckill
+          predicates:
+            - Host=seckill.nrpt.com
+
